@@ -73,27 +73,28 @@ function gerarLinha() {
         titulo.innerText = "BAIA " + b;
         baia.appendChild(titulo);
 
-        const dispositivos = document.createElement("div");
-        dispositivos.className = "jigs";
+        const jigs = document.createElement("div");
+        jigs.className = "jigs";
 
-        for (let bancada = 1; bancada <= window.MONITOR_CONFIG.totalBancadas; bancada++) {
-            for (let dispositivo = 1; dispositivo <= window.MONITOR_CONFIG.totalDispositivos; dispositivo++) {
-                const disp = document.createElement("div");
-                const status = ultimoSnapshot.estado[linhaAtual][b][bancada][dispositivo] || "semcom";
+        for (let j = 1; j <= 4; j++) {
+            const jig = document.createElement("div");
+            // Mapear jig para bancada e dispositivo
+            const bancada = j <= 2 ? 1 : 2;
+            const dispositivo = j % 2 === 1 ? 1 : 2;
+            const status = ultimoSnapshot.estado[linhaAtual][b]?.[bancada]?.[dispositivo] || "semcom";
 
-                disp.className = "jig " + status;
-                disp.innerText = `B${bancada}D${dispositivo}`;
+            jig.className = "jig " + status;
+            jig.innerText = "J" + j;
 
-                if (status === "ok") ok++;
-                if (status === "falha") falha++;
-                if (status === "alerta") alerta++;
-                if (status === "semcom") offline++;
+            if (status === "ok") ok++;
+            if (status === "falha") falha++;
+            if (status === "alerta") alerta++;
+            if (status === "semcom") offline++;
 
-                dispositivos.appendChild(disp);
-            }
+            jigs.appendChild(jig);
         }
 
-        baia.appendChild(dispositivos);
+        baia.appendChild(jigs);
         container.appendChild(baia);
     }
 

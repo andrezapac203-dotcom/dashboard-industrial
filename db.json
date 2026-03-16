@@ -11,30 +11,67 @@
       "linha": "IMC08",
       "baia": "3",
       "bancada": "2"
+    },
+    {
+      "id_medidor": "DISPOSITIVO01",
+      "linha": "IMC10",
+      "baia": "01"
     }
   ],
   "dashboardState": {
     "IMC10": {
       "1": {
         "1": {
-          "1": "ok"
+          "1": "ok",
+          "2": "falha"
         },
         "2": {
-          "2": "falha"
+          "1": "ok",
+          "2": "semcom"
+        }
+      },
+      "2": {
+        "1": {
+          "1": "ok",
+          "2": "ok"
+        },
+        "2": {
+          "1": "ok",
+          "2": "ok"
         }
       }
     },
     "IMC08": {
-      "3": {
+      "1": {
+        "1": {
+          "1": "ok",
+          "2": "ok"
+        },
         "2": {
-          "2": "alerta"
+          "1": "ok",
+          "2": "ok"
+        }
+      },
+      "3": {
+        "1": {
+          "1": "alerta",
+          "2": "ok"
+        },
+        "2": {
+          "1": "ok",
+          "2": "ok"
         }
       }
     },
     "IMC12": {
        "1": {
         "1": {
-          "1": "semcom"
+          "1": "semcom",
+          "2": "semcom"
+        },
+        "2": {
+          "1": "semcom",
+          "2": "semcom"
         }
       }
     }
@@ -43,8 +80,9 @@
     {
       "linha": "IMC10",
       "baia": "BAIA 1",
-      "equipamento": "J2",
-      "dispositivo": "JIG 2",
+      "bancada": "BANCADA 1",
+      "equipamento": "DISP1",
+      "dispositivo": "DISPOSITIVO 1",
       "tipo": "Sobrecorrente",
       "status": "falha",
       "horaFalha": "10:15:30",
@@ -53,8 +91,9 @@
     {
       "linha": "IMC08",
       "baia": "BAIA 3",
-      "equipamento": "J1",
-      "dispositivo": "JIG 1",
+      "bancada": "BANCADA 2",
+      "equipamento": "DISP2",
+      "dispositivo": "DISPOSITIVO 2",
       "tipo": "Timeout",
       "status": "alerta",
       "horaFalha": "-",
