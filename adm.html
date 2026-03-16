@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Configuração</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="brand-strip">
+        <img src="assets/branding/logo-ctd-dgb.svg" alt="Centro de Transformação Digital e dgb digiboard">
+    </div>
+
+    <div class="dashboard-aterramento">
+        <header class="top-bar">
+            <div>
+                <h1 class="dashboard-head" style="margin: 0; font-size: 2rem; color: var(--accent-color);">Página de Configuração</h1>
+                <div class="subtitle">Mudar a localização de um dispositivo.</div>
+                <div class="subtitle" id="statusConexao">WebSocket: conectando...</div>
+            </div>
+            <div class="dash-actions">
+                <a href="dashboard.html" class="btn-nav">Dashboard Rotativo</a>
+                <a href="producao.html" class="btn-nav">Painel Produção</a>
+                <a href="linha.html" class="btn-nav">Linha</a>
+                <a href="adm.html" class="btn-nav">Admin</a>
+            </div>
+        </header>
+
+        <div class="card-admin">
+            <div class="input-group">
+                <div>
+                    <div class="field-label">ID do Dispositivo</div>
+                    <input id="idMedidor" type="text" ng-model="form.id_medidor" placeholder="Ex: 2 (ID da bancada)" autocomplete="off">
+                </div>
+                <div>
+                    <div class="field-label">Nova Linha</div>
+                    <input id="linhaNova" type="text" ng-model="form.linha" placeholder="Ex: IMC10" autocomplete="off">
+                </div>
+                <div>
+                    <div class="field-label">Nova Baia</div>
+                    <input id="baiaNova" type="text" ng-model="form.baia" placeholder="Ex: 05" autocomplete="off">
+                </div>
+                <div class="input-actions">
+                    <div class="field-label">&nbsp;</div>
+                    <button id="btnAtualizar" class="btn btn-save" type="button">ATUALIZAR LOCALIZAÇÃO</button>
+                </div>
+            </div>
+            <div class="subtitle" id="statusEnvio"></div>
+        </div>
+    </div>
+
+    <script src="adm.js"></script>
+</body>
+</html>

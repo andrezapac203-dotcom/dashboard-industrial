@@ -1,0 +1,74 @@
+{
+  "config": [
+    {
+      "id_medidor": "ESP32_1",
+      "linha": "IMC10",
+      "baia": "1"
+    },
+    {
+      "id_medidor": "ESP32_2",
+      "linha": "IMC08",
+      "baia": "3"
+    }
+  ],
+  "dashboardState": {
+    "IMC10": {
+      "1": {
+        "1": "ok",
+        "2": "falha",
+        "3": "ok",
+        "4": "semcom"
+      },
+      "2": {
+        "1": "ok",
+        "2": "ok",
+        "3": "ok",
+        "4": "ok"
+      }
+    },
+    "IMC08": {
+      "1": {
+        "1": "ok",
+        "2": "ok",
+        "3": "ok",
+        "4": "ok"
+      },
+      "3": {
+        "1": "alerta",
+        "2": "ok",
+        "3": "ok",
+        "4": "ok"
+      }
+    },
+    "IMC12": {
+       "1": {
+        "1": "semcom",
+        "2": "semcom",
+        "3": "semcom",
+        "4": "semcom"
+      }
+    }
+  },
+  "productionEvents": [
+    {
+      "linha": "IMC10",
+      "baia": "BAIA 1",
+      "equipamento": "J2",
+      "dispositivo": "JIG 2",
+      "tipo": "Sobrecorrente",
+      "status": "falha",
+      "horaFalha": "10:15:30",
+      "ultimaAtualizacao": "10:15:30"
+    },
+    {
+      "linha": "IMC08",
+      "baia": "BAIA 3",
+      "equipamento": "J1",
+      "dispositivo": "JIG 1",
+      "tipo": "Timeout",
+      "status": "alerta",
+      "horaFalha": "-",
+      "ultimaAtualizacao": "11:05:00"
+    }
+  ]
+}

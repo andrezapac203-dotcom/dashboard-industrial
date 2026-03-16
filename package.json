@@ -1,0 +1,17 @@
+{
+  "name": "dashboard-backend",
+  "version": "1.0.0",
+  "description": "Simple backend to simulate data for the industrial dashboard.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="360" viewBox="0 0 1400 360" role="img" aria-label="Centro de Transformacao Digital e dgb digiboard">
+  <rect x="0" y="0" width="1400" height="360" rx="28" fill="#efefef"/>
+
+  <g transform="translate(90,62)">
+    <line x1="120" y1="58" x2="230" y2="290" stroke="#a9acb8" stroke-width="44" stroke-linecap="round"/>
+    <line x1="120" y1="58" x2="8" y2="292" stroke="#4f74bf" stroke-width="44" stroke-linecap="round"/>
+    <line x1="10" y1="290" x2="260" y2="150" stroke="#d65f4a" stroke-width="44" stroke-linecap="round"/>
+    <circle cx="295" cy="114" r="26" fill="#d65f4a"/>
+    <text x="0" y="328" font-family="Arial, sans-serif" font-size="37" fill="#70757e">Centro de Transformacao Digital</text>
+  </g>
+
+  <line x1="500" y1="48" x2="500" y2="312" stroke="#939393" stroke-width="8" stroke-linecap="round"/>
+
+  <g transform="translate(530,40)">
+    <text x="0" y="210" font-family="Arial, sans-serif" font-size="210" font-weight="700" fill="#2f80de">dgb</text>
+    <text x="390" y="210" font-family="Arial, sans-serif" font-size="72" fill="#6c6c6c">digiboard</text>
+  </g>
+</svg>

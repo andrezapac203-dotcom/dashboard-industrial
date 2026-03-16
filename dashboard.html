@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Monitoramento Industrial</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="brand-strip">
+    <img src="assets/branding/logo-ctd-dgb.svg" alt="Centro de Transformacao Digital e dgb digiboard">
+</div>
+
+<header class="top-bar">
+    <div class="dashboard-head">
+        <div id="linhaNome">IMC10</div>
+        <div class="subtitle">Dashboard Geral - Monitoramento em Tempo Real</div>
+        <div id="statusGeral" class="dash-status ok">Status da linha: OK - Funcionando</div>
+    </div>
+
+    <div class="dash-actions">
+        <button id="btnAnterior" class="btn-nav" type="button">Linha Anterior</button>
+        <button id="btnProxima" class="btn-nav" type="button">Proxima Linha</button>
+        <button id="btnAuto" class="btn-nav" type="button">Pausar Rotacao</button>
+        <button id="btnAbrirLinha" class="btn-nav" type="button">Abrir Tela da Linha</button>
+        <button id="btnPainel" class="btn-nav" type="button">Ir para Producao</button>
+        <a href="adm.html" class="btn-nav">Admin</a>
+    </div>
+</header>
+
+<section class="linha-selector">
+    <h2>Linhas Disponiveis</h2>
+    <div id="listaLinhasDashboard" class="linha-lista"></div>
+</section>
+
+<section class="resumo-status">
+    <div class="status-box ok-box">
+        <span id="countOk">0</span>
+        <p>OPERANDO</p>
+    </div>
+    <div class="status-box falha-box">
+        <span id="countFalha">0</span>
+        <p>FALHAS</p>
+    </div>
+    <div class="status-box alerta-box">
+        <span id="countAlerta">0</span>
+        <p>ALERTAS</p>
+    </div>
+    <div class="status-box offline-box">
+        <span id="countOffline">0</span>
+        <p>OFFLINE</p>
+    </div>
+</section>
+
+<div id="containerBaias" class="baias-grid"></div>
+
+<script src="data-service.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

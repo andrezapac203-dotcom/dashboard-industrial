@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Producao - Alarmes</title>
+<link rel="stylesheet" href="producao.css">
+</head>
+<body>
+<div class="brand-strip">
+    <img src="assets/branding/logo-ctd-dgb.svg" alt="Centro de Transformacao Digital e dgb digiboard">
+</div>
+
+<header class="alarm-topbar">
+    <div class="topbar-left">
+        <span class="menu-icon">&#9776;</span>
+        <span class="home-icon">&#127968;</span>
+        <span class="topbar-title">HOME - ALARMES</span>
+    </div>
+    <div class="topbar-actions">
+        <button id="btnDashboard" class="btn-top" type="button">Dashboard</button>
+        <button id="btnPainel" class="btn-top" type="button">Linha</button>
+        <button id="btnAdm" class="btn-top" type="button">Admin</button>
+    </div>
+</header>
+
+<main class="alarm-main">
+    <section class="card gauge-card">
+        <h2>Alarmes ativos</h2>
+        <div class="gauge-wrap">
+            <div class="gauge" id="gauge">
+                <div class="gauge-hole"></div>
+                <div class="gauge-needle" id="gaugeNeedle"></div>
+                <div class="gauge-value">
+                    <span id="contadorFalhas">0</span>
+                    <small>unidades</small>
+                </div>
+                <div class="gauge-scale">
+                    <span>0</span>
+                    <span id="gaugeMax">10</span>
+                </div>
+            </div>
+        </div>
+        <div class="status-conexao" id="statusConexao">WebSocket: conectando...</div>
+    </section>
+
+    <section class="card table-card">
+        <div class="table-toolbar">
+            <button id="btnLimparHistorico" class="btn-primary" type="button">Limpar historico</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Linha</th>
+                        <th>Baia</th>
+                        <th>Equipamento</th>
+                        <th>Status</th>
+                        <th>Horario Falha</th>
+                        <th>Ultima Atualizacao</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaFalhas"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script src="producao.js"></script>
+</body>
+</html>

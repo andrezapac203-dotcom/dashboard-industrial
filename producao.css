@@ -1,0 +1,232 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --bg-color: #1a1d24;
+    --surface-color: #242830;
+    --border-color: #454a54;
+    --text-color: #e1e3e8;
+    --text-soft-color: #9ba1a8;
+    --accent-color: #ffab00; /* Amber/Yellow Accent */
+    --accent-dark-color: #d48f00;
+    --red-color: #e53935;
+    --green-color: #43a047;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.brand-strip {
+    background: #e9ecef;
+    border-bottom: 2px solid var(--border-color);
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.brand-strip img {
+    height: 40px;
+}
+
+.alarm-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.menu-icon, .home-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.btn-top {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    background-color: var(--accent-color);
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-top:hover {
+    background-color: var(--accent-dark-color);
+}
+
+.alarm-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.gauge-card h2 {
+    font-family: 'Exo 2', sans-serif;
+    margin-top: 0;
+    text-align: center;
+    color: var(--accent-color);
+    text-transform: uppercase;
+}
+
+.gauge-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.gauge {
+    width: 200px;
+    height: 100px;
+    border-radius: 100px 100px 0 0;
+    border: 10px solid #383d47;
+    border-bottom: none;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.gauge-hole {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    position: absolute;
+    bottom: -10px;
+}
+
+.gauge-needle {
+    width: 2px;
+    height: 90px;
+    background-color: var(--accent-color);
+    position: absolute;
+    bottom: 0;
+    transform-origin: bottom center;
+    transition: transform 0.5s;
+    transform: rotate(-90deg);
+}
+
+.gauge-value {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+}
+
+#contadorFalhas {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.gauge-scale {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 0.9rem;
+    color: var(--text-soft-color);
+}
+
+.status-conexao {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-soft-color);
+}
+
+.table-toolbar {
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: #000;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-dark-color);
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+thead {
+    background-color: #383d47;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #2c313a;
+}
+
+tbody tr:hover {
+    background-color: #3c414a;
+}
+
+td .status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.status.ok { color: var(--green-color); }
+.status.falha { color: var(--red-color); }
+
+@media (max-width: 900px) {
+    .alarm-main {
+        grid-template-columns: 1fr;
+    }
+}
