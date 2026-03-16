@@ -1,103 +1,45 @@
 {
-  "config": [
-    {
-      "id_medidor": "ESP32_1",
-      "linha": "IMC10",
-      "baia": "1",
-      "bancada": "1"
-    },
-    {
-      "id_medidor": "ESP32_2",
-      "linha": "IMC08",
-      "baia": "3",
-      "bancada": "2"
-    },
-    {
-      "id_medidor": "DISPOSITIVO01",
-      "linha": "IMC10",
-      "baia": "01"
-    }
-  ],
+  "config": [],
   "dashboardState": {
-    "IMC10": {
-      "1": {
-        "1": {
-          "1": "ok",
-          "2": "falha"
-        },
+    "IMC04": {
+      "8": {
         "2": {
-          "1": "ok",
-          "2": "semcom"
-        }
-      },
-      "2": {
-        "1": {
-          "1": "ok",
-          "2": "ok"
-        },
-        "2": {
-          "1": "ok",
-          "2": "ok"
-        }
-      }
-    },
-    "IMC08": {
-      "1": {
-        "1": {
-          "1": "ok",
-          "2": "ok"
-        },
-        "2": {
-          "1": "ok",
-          "2": "ok"
-        }
-      },
-      "3": {
-        "1": {
-          "1": "alerta",
-          "2": "ok"
-        },
-        "2": {
-          "1": "ok",
-          "2": "ok"
-        }
-      }
-    },
-    "IMC12": {
-       "1": {
-        "1": {
-          "1": "semcom",
-          "2": "semcom"
-        },
-        "2": {
-          "1": "semcom",
-          "2": "semcom"
+          "1": {
+            "status": "semcom",
+            "tipo": ""
+          },
+          "2": {
+            "status": "semcom",
+            "tipo": ""
+          }
         }
       }
     }
   },
   "productionEvents": [
     {
-      "linha": "IMC10",
-      "baia": "BAIA 1",
-      "bancada": "BANCADA 1",
+      "linha": "IMC04",
+      "baia": "BAIA 8",
+      "bancada": "BANCADA 2",
       "equipamento": "DISP1",
       "dispositivo": "DISPOSITIVO 1",
-      "tipo": "Sobrecorrente",
-      "status": "falha",
-      "horaFalha": "10:15:30",
-      "ultimaAtualizacao": "10:15:30"
+      "tipo": "OK",
+      "status": "ok",
+      "horario": "16:06:10",
+      "horaFalha": "-",
+      "ultimaAtualizacao": "16:06:10"
     },
     {
-      "linha": "IMC08",
-      "baia": "BAIA 3",
+      "linha": "IMC04",
+      "baia": "BAIA 8",
       "bancada": "BANCADA 2",
       "equipamento": "DISP2",
       "dispositivo": "DISPOSITIVO 2",
-      "tipo": "Timeout",
-      "status": "alerta",
-      "horaFalha": "-",
-      "ultimaAtualizacao": "11:05:00"
+      "tipo": "Sobrecorrente",
+      "status": "falha",
+      "horario": "16:06:10",
+      "horaFalha": "15:55:52",
+      "ultimaAtualizacao": "16:06:10"
     }
   ]
 }

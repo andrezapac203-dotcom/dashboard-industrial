@@ -3,9 +3,9 @@
 const API_BASE_URL = "http://localhost:3000/api";
 
 const MONITOR_CONFIG = {
-    // A lista de linhas agora pode ser obtida dinamicamente do servidor
-    linhas: ["IMC10", "IMC08", "IMC12", "IMC05", "IMC04", "IMC06"],
+    linhas: ["IMC04", "IMC05", "IMC06", "IMC08", "IMC10", "IMC12"],
     totalBaias: 10,
+    totalJigs: 4,
     totalBancadas: 2,
     totalDispositivos: 2
 };
@@ -15,10 +15,10 @@ function criarEstruturaLinha() {
     for (let baia = 1; baia <= MONITOR_CONFIG.totalBaias; baia++) {
         linha[baia] = {};
         for (let bancada = 1; bancada <= MONITOR_CONFIG.totalBancadas; bancada++) {
-            linha[baia][bancada] = {};
-            for (let dispositivo = 1; dispositivo <= MONITOR_CONFIG.totalDispositivos; dispositivo++) {
-                linha[baia][bancada][dispositivo] = "semcom";
-            }
+            linha[baia][bancada] = {
+                1: { status: "semcom", tipo: "" },
+                2: { status: "semcom", tipo: "" }
+            };
         }
     }
     return linha;
@@ -26,9 +26,7 @@ function criarEstruturaLinha() {
 
 function criarEstadoInicial() {
     const estado = {};
-    MONITOR_CONFIG.linhas.forEach((linha) => {
-        estado[linha] = criarEstruturaLinha();
-    });
+    MONITOR_CONFIG.linhas.forEach(l => { estado[l] = criarEstruturaLinha(); });
     return estado;
 }
 
@@ -76,18 +74,20 @@ class MonitorDataService {
     processarNovoEstado(novoEstado) {
         if (!novoEstado || typeof novoEstado !== 'object') return;
 
-        // Atualiza o estado interno
-        this.estado = novoEstado;
-
-        // Atualiza a configuração de linhas se necessário
-        const novasLinhas = Object.keys(novoEstado);
-        novasLinhas.forEach(linha => {
-            if (!MONITOR_CONFIG.linhas.includes(linha)) {
-                MONITOR_CONFIG.linhas.push(linha);
-            }
+        // Mescla dados reais do servidor sobre o estado base (semcom)
+        // Linhas com dado real atualizam; linhas sem dado ficam como semcom
+        Object.entries(novoEstado).forEach(([linha, baias]) => {
+            if (!this.estado[linha]) this.estado[linha] = criarEstruturaLinha();
+            Object.entries(baias).forEach(([baia, bancadas]) => {
+                if (!this.estado[linha][baia]) this.estado[linha][baia] = {};
+                Object.entries(bancadas).forEach(([bancada, jigs]) => {
+                    if (!this.estado[linha][baia][bancada]) this.estado[linha][baia][bancada] = {};
+                    Object.assign(this.estado[linha][baia][bancada], jigs);
+                });
+            });
+            if (!MONITOR_CONFIG.linhas.includes(linha)) MONITOR_CONFIG.linhas.push(linha);
         });
 
-        // Notifica os listeners sobre a mudança
         this.notificar();
     }
 

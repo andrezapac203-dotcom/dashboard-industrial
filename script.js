@@ -47,24 +47,43 @@ function gerarLinha() {
         titulo.innerText = "BAIA " + b;
         baia.appendChild(titulo);
 
-        const jigs = document.createElement("div");
-        jigs.className = "jigs";
+        const bancadas = document.createElement("div");
+        bancadas.className = "bancadas";
 
-        for (let j = 1; j <= window.MONITOR_CONFIG.totalJigs; j++) {
-            const jig = document.createElement("div");
-            const status = ultimoSnapshot.estado[nomeLinha][b][j] || "semcom";
-            jig.className = "jig " + status;
-            jig.innerText = "J" + j;
+        for (let bancada = 1; bancada <= 2; bancada++) {
+            const bancadaCard = document.createElement("div");
+            bancadaCard.className = "bancada-card";
 
-            if (status === "ok") ok++;
-            if (status === "falha") falha++;
-            if (status === "alerta") alerta++;
-            if (status === "semcom") offline++;
+            const bancadaLabel = document.createElement("div");
+            bancadaLabel.className = "bancada-label";
+            bancadaLabel.innerText = `Bancada ${bancada}`;
+            bancadaCard.appendChild(bancadaLabel);
 
-            jigs.appendChild(jig);
+            const jigs = document.createElement("div");
+            jigs.className = "jigs";
+
+            for (let j = 1; j <= 2; j++) {
+                const jig = document.createElement("div");
+                const raw = ultimoSnapshot.estado[nomeLinha]?.[b]?.[bancada]?.[j];
+                const status = (raw && raw.status) ? raw.status : (raw || "semcom");
+                const tipo = (raw && raw.tipo) ? raw.tipo : "";
+
+                jig.className = "jig " + status;
+                jig.innerHTML = `<span class="jig-label">J${j}</span>${tipo ? `<span class="jig-tipo">${tipo}</span>` : ""}`;
+
+                if (status === "ok") ok++;
+                if (status === "falha") falha++;
+                if (status === "alerta") alerta++;
+                if (status === "semcom") offline++;
+
+                jigs.appendChild(jig);
+            }
+
+            bancadaCard.appendChild(jigs);
+            bancadas.appendChild(bancadaCard);
         }
 
-        baia.appendChild(jigs);
+        baia.appendChild(bancadas);
         container.appendChild(baia);
     }
 

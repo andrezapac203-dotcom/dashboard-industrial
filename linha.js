@@ -73,28 +73,43 @@ function gerarLinha() {
         titulo.innerText = "BAIA " + b;
         baia.appendChild(titulo);
 
-        const jigs = document.createElement("div");
-        jigs.className = "jigs";
+        const bancadas = document.createElement("div");
+        bancadas.className = "bancadas";
 
-        for (let j = 1; j <= 4; j++) {
-            const jig = document.createElement("div");
-            // Mapear jig para bancada e dispositivo
-            const bancada = j <= 2 ? 1 : 2;
-            const dispositivo = j % 2 === 1 ? 1 : 2;
-            const status = ultimoSnapshot.estado[linhaAtual][b]?.[bancada]?.[dispositivo] || "semcom";
+        for (let bancada = 1; bancada <= 2; bancada++) {
+            const bancadaCard = document.createElement("div");
+            bancadaCard.className = "bancada-card";
 
-            jig.className = "jig " + status;
-            jig.innerText = "J" + j;
+            const bancadaLabel = document.createElement("div");
+            bancadaLabel.className = "bancada-label";
+            bancadaLabel.innerText = `Bancada ${bancada}`;
+            bancadaCard.appendChild(bancadaLabel);
 
-            if (status === "ok") ok++;
-            if (status === "falha") falha++;
-            if (status === "alerta") alerta++;
-            if (status === "semcom") offline++;
+            const jigs = document.createElement("div");
+            jigs.className = "jigs";
 
-            jigs.appendChild(jig);
+            for (let j = 1; j <= 2; j++) {
+                const jig = document.createElement("div");
+                const raw = ultimoSnapshot.estado[linhaAtual][b]?.[bancada]?.[j];
+                const status = (raw && raw.status) ? raw.status : (raw || "semcom");
+                const tipo = (raw && raw.tipo) ? raw.tipo : "";
+
+                jig.className = "jig " + status;
+                jig.innerHTML = `<span class="jig-label">J${j}</span>${tipo ? `<span class="jig-tipo">${tipo}</span>` : ""}`;
+
+                if (status === "ok") ok++;
+                if (status === "falha") falha++;
+                if (status === "alerta") alerta++;
+                if (status === "semcom") offline++;
+
+                jigs.appendChild(jig);
+            }
+
+            bancadaCard.appendChild(jigs);
+            bancadas.appendChild(bancadaCard);
         }
 
-        baia.appendChild(jigs);
+        baia.appendChild(bancadas);
         container.appendChild(baia);
     }
 
