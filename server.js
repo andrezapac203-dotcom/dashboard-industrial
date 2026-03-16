@@ -3,10 +3,93 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const mqtt = require('mqtt');
 
 const app = express();
 const PORT = 3000;
 const DB_PATH = path.join(__dirname, 'db.json');
+
+// Configurações MQTT
+const MQTT_BROKER = 'mqtt://localhost:1883'; // Ajuste se o broker for diferente
+const MQTT_TOPIC = 'dashboard/update'; // Tópico para receber updates
+
+// Cliente MQTT
+const mqttClient = mqtt.connect(MQTT_BROKER);
+
+mqttClient.on('connect', () => {
+    console.log('Conectado ao broker MQTT');
+    mqttClient.subscribe(MQTT_TOPIC, (err) => {
+        if (err) {
+            console.error('Erro ao subscrever no tópico MQTT:', err);
+        } else {
+            console.log(`Subscrito no tópico: ${MQTT_TOPIC}`);
+        }
+    });
+});
+
+mqttClient.on('message', (topic, message) => {
+    try {
+        const data = JSON.parse(message.toString());
+        console.log('Mensagem MQTT recebida:', data);
+
+        // Processar como no /api/update
+        const { linha, baia, jig, status } = data;
+
+        if (!linha || !baia || !jig || !status) {
+            console.error('Dados incompletos na mensagem MQTT:', data);
+            return;
+        }
+
+        const db = readDb();
+
+        // Determinar bancada e dispositivo baseado no jig
+        const bancada = jig <= 2 ? '1' : '2';
+        const dispositivo = jig <= 2 ? '1' : '2';
+
+        // Atualiza o dashboardState: linha -> baia -> bancada -> dispositivo -> status
+        if (!db.dashboardState[linha]) db.dashboardState[linha] = {};
+        if (!db.dashboardState[linha][baia]) db.dashboardState[linha][baia] = {};
+        if (!db.dashboardState[linha][baia][bancada]) db.dashboardState[linha][baia][bancada] = {};
+        db.dashboardState[linha][baia][bancada][dispositivo] = status;
+
+        // Atualiza/Adiciona um evento em productionEvents
+        const now = new Date();
+        const horario = now.toLocaleTimeString('pt-BR', { hour12: false });
+        const evento = {
+            linha: linha,
+            baia: `BAIA ${baia}`,
+            bancada: `BANCADA ${bancada}`,
+            equipamento: `DISP${dispositivo}`,
+            dispositivo: `DISPOSITIVO ${dispositivo}`,
+            tipo: status === 'falha' ? 'Falha MQTT' : 'Info',
+            status: status,
+            horario: horario,
+            horaFalha: status === 'falha' ? horario : '-',
+            ultimaAtualizacao: horario
+        };
+
+        const chaveEvento = `${linha}|BAIA ${baia}|BANCADA ${bancada}|DISP${dispositivo}|DISPOSITIVO ${dispositivo}`;
+        const indexEvento = db.productionEvents.findIndex(e => `${e.linha}|${e.baia}|${e.bancada}|${e.equipamento}|${e.dispositivo}` === chaveEvento);
+
+        if (indexEvento !== -1) {
+            const horaFalhaOriginal = db.productionEvents[indexEvento].status === 'falha' 
+                ? db.productionEvents[indexEvento].horaFalha 
+                : evento.horaFalha;
+            
+            db.productionEvents[indexEvento] = {
+                ...evento,
+                horaFalha: horaFalhaOriginal
+            };
+        } else {
+            db.productionEvents.push(evento);
+        }
+        
+        writeDb(db);
+        console.log('Status atualizado via MQTT:', { linha, baia, bancada, dispositivo, jig, status });
+    } catch (error) {
+        console.error('Erro ao processar mensagem MQTT:', error);
+    }
+});
 
 // Middlewares
 app.use(cors()); // Permite requisições de qualquer origem, útil para file://
