@@ -57,9 +57,9 @@ app.get('/api/producao', (req, res) => {
 
 // Rota para salvar a configuração do ADM
 app.post('/api/config', (req, res) => {
-    const { id_medidor, linha, baia } = req.body;
+    const { id_medidor, linha, baia, bancada } = req.body;
 
-    if (!id_medidor || !linha || !baia) {
+    if (!id_medidor || !linha || !baia || !bancada) {
         return res.status(400).json({ ok: false, message: 'Dados incompletos.' });
     }
 
@@ -68,14 +68,14 @@ app.post('/api/config', (req, res) => {
     // Evita duplicatas
     const existingIndex = db.config.findIndex(c => c.id_medidor === id_medidor);
     if (existingIndex !== -1) {
-        db.config[existingIndex] = { id_medidor, linha, baia };
+        db.config[existingIndex] = { id_medidor, linha, baia, bancada };
     } else {
-        db.config.push({ id_medidor, linha, baia });
+        db.config.push({ id_medidor, linha, baia, bancada });
     }
 
     writeDb(db);
 
-    console.log('Configuração salva:', { id_medidor, linha, baia });
+    console.log('Configuração salva:', { id_medidor, linha, baia, bancada });
     res.json({ ok: true, message: 'Configuração salva com sucesso!' });
 });
 
@@ -91,10 +91,15 @@ app.post('/api/update', (req, res) => {
 
     const db = readDb();
 
-    // Atualiza o dashboardState
+    // Determinar bancada e dispositivo baseado no jig
+    const bancada = jig <= 2 ? '1' : '2';
+    const dispositivo = jig <= 2 ? '1' : '2';
+
+    // Atualiza o dashboardState: linha -> baia -> bancada -> dispositivo -> status
     if (!db.dashboardState[linha]) db.dashboardState[linha] = {};
     if (!db.dashboardState[linha][baia]) db.dashboardState[linha][baia] = {};
-    db.dashboardState[linha][baia][jig] = status;
+    if (!db.dashboardState[linha][baia][bancada]) db.dashboardState[linha][baia][bancada] = {};
+    db.dashboardState[linha][baia][bancada][dispositivo] = status;
 
     // Atualiza/Adiciona um evento em productionEvents
     const now = new Date();
@@ -102,8 +107,9 @@ app.post('/api/update', (req, res) => {
     const evento = {
         linha: linha,
         baia: `BAIA ${baia}`,
-        equipamento: `J${jig}`,
-        dispositivo: `JIG ${jig}`,
+        bancada: `BANCADA ${bancada}`,
+        equipamento: `DISP${dispositivo}`,
+        dispositivo: `DISPOSITIVO ${dispositivo}`,
         tipo: status === 'falha' ? 'Falha Manual' : 'Info',
         status: status,
         horario: horario,
@@ -111,8 +117,8 @@ app.post('/api/update', (req, res) => {
         ultimaAtualizacao: horario
     };
 
-    const chaveEvento = `${linha}|BAIA ${baia}|J${jig}|JIG ${jig}`;
-    const indexEvento = db.productionEvents.findIndex(e => `${e.linha}|${e.baia}|${e.equipamento}|${e.dispositivo}` === chaveEvento);
+    const chaveEvento = `${linha}|BAIA ${baia}|BANCADA ${bancada}|DISP${dispositivo}|DISPOSITIVO ${dispositivo}`;
+    const indexEvento = db.productionEvents.findIndex(e => `${e.linha}|${e.baia}|${e.bancada}|${e.equipamento}|${e.dispositivo}` === chaveEvento);
 
     if (indexEvento !== -1) {
         // Mantém a hora da falha original se já estava em falha
@@ -129,7 +135,7 @@ app.post('/api/update', (req, res) => {
     }
     
     writeDb(db);
-    console.log('Status atualizado:', { linha, baia, jig, status });
+    console.log('Status atualizado:', { linha, baia, bancada, dispositivo, jig, status });
     res.json({ message: 'Status atualizado com sucesso' });
 });
 

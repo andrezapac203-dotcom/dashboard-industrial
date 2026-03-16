@@ -30,7 +30,7 @@
             <div class="input-group">
                 <div>
                     <div class="field-label">ID do Dispositivo</div>
-                    <input id="idMedidor" type="text" ng-model="form.id_medidor" placeholder="Ex: 2 (ID da bancada)" autocomplete="off">
+                    <input id="idMedidor" type="text" ng-model="form.id_medidor" placeholder="Ex: 1 (ID da bancada)" autocomplete="off">
                 </div>
                 <div>
                     <div class="field-label">Nova Linha</div>
@@ -39,6 +39,13 @@
                 <div>
                     <div class="field-label">Nova Baia</div>
                     <input id="baiaNova" type="text" ng-model="form.baia" placeholder="Ex: 05" autocomplete="off">
+                </div>
+                <div>
+                    <div class="field-label">Bancada</div>
+                    <select id="bancadaNova">
+                        <option value="1">Bancada 1</option>
+                        <option value="2">Bancada 2</option>
+                    </select>
                 </div>
                 <div class="input-actions">
                     <div class="field-label">&nbsp;</div>

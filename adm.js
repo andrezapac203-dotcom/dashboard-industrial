@@ -32,15 +32,17 @@ function buildPayload() {
     const idMedidor = String($("idMedidor")?.value || "").trim();
     const linha = normalizarLinha($("linhaNova")?.value || "");
     const baia = String($("baiaNova")?.value || "").trim();
+    const bancada = String($("bancadaNova")?.value || "").trim();
 
     // O servidor espera 'id_medidor'
-    return { id_medidor: idMedidor, linha, baia };
+    return { id_medidor: idMedidor, linha, baia, bancada };
 }
 
 function validarPayload(payload) {
     if (!payload.id_medidor) return "Informe o ID do dispositivo.";
     if (!payload.linha) return "Informe a linha.";
     if (!payload.baia) return "Informe a baia.";
+    if (!payload.bancada) return "Informe a bancada.";
     return null;
 }
 

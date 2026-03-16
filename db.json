@@ -3,49 +3,39 @@
     {
       "id_medidor": "ESP32_1",
       "linha": "IMC10",
-      "baia": "1"
+      "baia": "1",
+      "bancada": "1"
     },
     {
       "id_medidor": "ESP32_2",
       "linha": "IMC08",
-      "baia": "3"
+      "baia": "3",
+      "bancada": "2"
     }
   ],
   "dashboardState": {
     "IMC10": {
       "1": {
-        "1": "ok",
-        "2": "falha",
-        "3": "ok",
-        "4": "semcom"
-      },
-      "2": {
-        "1": "ok",
-        "2": "ok",
-        "3": "ok",
-        "4": "ok"
+        "1": {
+          "1": "ok"
+        },
+        "2": {
+          "2": "falha"
+        }
       }
     },
     "IMC08": {
-      "1": {
-        "1": "ok",
-        "2": "ok",
-        "3": "ok",
-        "4": "ok"
-      },
       "3": {
-        "1": "alerta",
-        "2": "ok",
-        "3": "ok",
-        "4": "ok"
+        "2": {
+          "2": "alerta"
+        }
       }
     },
     "IMC12": {
        "1": {
-        "1": "semcom",
-        "2": "semcom",
-        "3": "semcom",
-        "4": "semcom"
+        "1": {
+          "1": "semcom"
+        }
       }
     }
   },

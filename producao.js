@@ -10,9 +10,10 @@ function gerarChave(dado) {
     // Garante que os componentes da chave existam
     const linha = dado.linha || "sem-linha";
     const baia = dado.baia || "sem-baia";
+    const bancada = dado.bancada || "sem-bancada";
     const equipamento = dado.equipamento || "sem-equipamento";
     const dispositivo = dado.dispositivo || ""; // Dispositivo pode ser opcional
-    return [linha, baia, equipamento, dispositivo].join("|");
+    return [linha, baia, bancada, equipamento, dispositivo].join("|");
 }
 
 function processarEventos(eventos) {
@@ -124,7 +125,7 @@ function atualizarTabela() {
 
     if (estadosEquipamentos.size === 0) {
         const row = document.createElement("tr");
-        row.innerHTML = '<td class="vazio" colspan="6">Sem dados de produção. Aguardando servidor...</td>';
+        row.innerHTML = '<td class="vazio" colspan="7">Sem dados de produção. Aguardando servidor...</td>';
         tabela.appendChild(row);
         return;
     }
@@ -143,6 +144,7 @@ function atualizarTabela() {
         row.innerHTML = `
             <td>${item.linha}</td>
             <td>${item.baia}</td>
+            <td>${item.bancada || "-"}</td>
             <td>${item.equipamento}${item.dispositivo ? " - " + item.dispositivo : ""}</td>
             <td class="${classeStatus(item.status)}">${textoStatus(item)}</td>
             <td>${item.horaFalha || "-"}</td>

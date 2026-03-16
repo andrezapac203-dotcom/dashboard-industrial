@@ -73,25 +73,27 @@ function gerarLinha() {
         titulo.innerText = "BAIA " + b;
         baia.appendChild(titulo);
 
-        const jigs = document.createElement("div");
-        jigs.className = "jigs";
+        const dispositivos = document.createElement("div");
+        dispositivos.className = "jigs";
 
-        for (let j = 1; j <= window.MONITOR_CONFIG.totalJigs; j++) {
-            const jig = document.createElement("div");
-            const status = ultimoSnapshot.estado[linhaAtual][b][j] || "semcom";
+        for (let bancada = 1; bancada <= window.MONITOR_CONFIG.totalBancadas; bancada++) {
+            for (let dispositivo = 1; dispositivo <= window.MONITOR_CONFIG.totalDispositivos; dispositivo++) {
+                const disp = document.createElement("div");
+                const status = ultimoSnapshot.estado[linhaAtual][b][bancada][dispositivo] || "semcom";
 
-            jig.className = "jig " + status;
-            jig.innerText = "J" + j;
+                disp.className = "jig " + status;
+                disp.innerText = `B${bancada}D${dispositivo}`;
 
-            if (status === "ok") ok++;
-            if (status === "falha") falha++;
-            if (status === "alerta") alerta++;
-            if (status === "semcom") offline++;
+                if (status === "ok") ok++;
+                if (status === "falha") falha++;
+                if (status === "alerta") alerta++;
+                if (status === "semcom") offline++;
 
-            jigs.appendChild(jig);
+                dispositivos.appendChild(disp);
+            }
         }
 
-        baia.appendChild(jigs);
+        baia.appendChild(dispositivos);
         container.appendChild(baia);
     }
 

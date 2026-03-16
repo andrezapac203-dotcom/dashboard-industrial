@@ -6,15 +6,19 @@ const MONITOR_CONFIG = {
     // A lista de linhas agora pode ser obtida dinamicamente do servidor
     linhas: ["IMC10", "IMC08", "IMC12", "IMC05", "IMC04", "IMC06"],
     totalBaias: 10,
-    totalJigs: 4
+    totalBancadas: 2,
+    totalDispositivos: 2
 };
 
 function criarEstruturaLinha() {
     const linha = {};
     for (let baia = 1; baia <= MONITOR_CONFIG.totalBaias; baia++) {
         linha[baia] = {};
-        for (let jig = 1; jig <= MONITOR_CONFIG.totalJigs; jig++) {
-            linha[baia][jig] = "semcom";
+        for (let bancada = 1; bancada <= MONITOR_CONFIG.totalBancadas; bancada++) {
+            linha[baia][bancada] = {};
+            for (let dispositivo = 1; dispositivo <= MONITOR_CONFIG.totalDispositivos; dispositivo++) {
+                linha[baia][bancada][dispositivo] = "semcom";
+            }
         }
     }
     return linha;
